@@ -11,15 +11,14 @@ export const createPost = async (data) => {
 };
 
 export const getOnePost = async (id) => {
-    try {
-        const response =  await apiRequest(() => axiosInstance.get("posts/" + id)  )
-        return response
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+    const response = await apiRequest(() => axiosInstance.get("posts/" + id));
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-
 export const postComment = async (body) => {
-    return await apiRequest(() => axiosInstance.patch("comments/", body)  )
-}
+  return await apiRequest(() => axiosInstance.patch("comments/", body));
+};

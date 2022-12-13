@@ -16,6 +16,7 @@ const CreatePost = () => {
     const response = await createPost({
       title: title,
       description: description,
+      titleColor: color,
     });
     if (!response.success) {
       alert(response.message);

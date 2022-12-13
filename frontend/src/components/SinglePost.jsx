@@ -5,7 +5,7 @@ const SinglePost = (data) => {
   return (
     <div className="w-full bg-red-200 flex flex-col border-2 border-black rounded-md mt-2">
       <div className="flex flex-col p-5">
-        <span className="text-2xl">{data.data.title}</span>
+        <span className="text-2xl" style={{color: data.data.titleColor ? `${data.data.titleColor}` : "black"}}>{data.data.title}</span>
         <div className="max-w-[10rem] text-left ">
         <span className="mt-4 max-w-[10rem]">
           {data.data.description}
