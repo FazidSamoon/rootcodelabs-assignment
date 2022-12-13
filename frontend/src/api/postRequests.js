@@ -12,7 +12,8 @@ export const createPost = async (data) => {
 
 export const getOnePost = async (id) => {
     try {
-        return await apiRequest(() => axiosInstance.get("posts/" + id)  )
+        const response =  await apiRequest(() => axiosInstance.get("posts/" + id)  )
+        return response
     } catch (error) {
         console.log(error);
     }

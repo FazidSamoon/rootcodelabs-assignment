@@ -11,10 +11,12 @@ const Post = () => {
     const location = useLocation();
     const path = location.pathname.split("/")[2];
     const [data, setData] = useState()
+
     useEffect(() => {
-        getOnePost(path).then(res => setData(res.data))
+        getOnePost(path).then(res => {setData(res.data)})
     }, [])
 
+    console.log("Ssss" ,data);
     const handleComment = async (e) => {
       e.preventDefault()
       const response = await postComment({
@@ -26,11 +28,12 @@ const Post = () => {
         alert(response.message);
       } else navigate("/");
     }
+
   return (
     <div className="w-full flex items-center p-8 flex-col ">
-      <div className="border-2 border-black rounded-md w-1/3 flex flex-col items-center px-4">
+      {data && <div className="border-2 border-black rounded-md w-1/3 flex flex-col items-center px-4">
         <div className="py-5 border-b-2 w-full flex justify-center">
-          <span className="text-xl">{data?.title}</span>
+          <span className="text-xl">{ data?.title }</span>
         </div>
         <SinglePost data={data} />
 
@@ -44,7 +47,7 @@ const Post = () => {
         <textarea rows={4} className="w-full bg-red-100 my-4 rounded-md p-4" placeholder="add your comment" onChange={e => setComment(e.target.value)}/>
 
         <button disabled={!comment} className="w-full h-7 bg-blue-400 my-6" onClick={handleComment}>Comment</button>
-      </div>
+      </div>}
     </div>
   );
 };
