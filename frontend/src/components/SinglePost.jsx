@@ -1,7 +1,6 @@
 import React from "react";
 
 const SinglePost = (data) => {
-console.log(data.data.title);
   return (
     <div className="w-full bg-red-200 flex flex-col border-2 border-black rounded-md mt-2">
       <div className="flex flex-col p-5">
