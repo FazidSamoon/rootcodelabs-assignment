@@ -2,7 +2,6 @@ import { addCommentService } from "../services/commentService";
 import { makeResponse } from "../utilities/response";
 
 export const addComment = async (req, res) => {
-  console.log(req.body);
   try {
     const response = await addCommentService(req.body);
     if (!response)

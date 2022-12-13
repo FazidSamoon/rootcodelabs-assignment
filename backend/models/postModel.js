@@ -21,8 +21,8 @@ const postSchema = new mongoose.Schema(
       default: new Date(),
     },
     titleColor: {
-      type: String
-    }
+      type: String,
+    },
   },
   { timestamps: true }
 );

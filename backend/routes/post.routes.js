@@ -1,10 +1,14 @@
 import Express from "express";
-import { createPost, gerAllPosts, getPostById } from "../controllers/postController";
+import {
+  createPost,
+  gerAllPosts,
+  getPostById,
+} from "../controllers/postController";
 
-const postRouter = Express.Router()
+const postRouter = Express.Router();
 
-postRouter.get("/", gerAllPosts)
-postRouter.get("/:id", getPostById)
-postRouter.post("/", createPost)
+postRouter.get("/", gerAllPosts);
+postRouter.get("/:id", getPostById);
+postRouter.post("/", createPost);
 
-export default postRouter
+export default postRouter;

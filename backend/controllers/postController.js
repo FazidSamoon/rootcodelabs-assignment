@@ -6,7 +6,6 @@ import {
 import { makeResponse } from "../utilities/response";
 
 export const createPost = async (req, res) => {
-  console.log(req.body);
   try {
     const response = await createPostService(req.body);
     if (!response) return makeResponse({ res, status: 500, message: "Post creation unsuccesful!!" });

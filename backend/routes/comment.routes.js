@@ -1,8 +1,8 @@
 import Express from "express";
 import { addComment } from "../controllers/commentController";
 
-const CommentRouter = Express.Router()
+const CommentRouter = Express.Router();
 
-CommentRouter.patch("/" , addComment)
+CommentRouter.patch("/", addComment);
 
-export default CommentRouter
+export default CommentRouter;
