@@ -4,8 +4,11 @@ import SinglePost from "../components/SinglePost";
 import { useLocation } from "react-router-dom";
 import SingleComment from "../components/SingleComment";
 import { useNavigate } from "react-router-dom";
+import { fetchAllPosts, getPostById } from "../redux/postSlice";
+import { useDispatch } from "react-redux";
 
 const Post = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const [comment, setComment] = useState()
     const location = useLocation();
@@ -13,10 +16,11 @@ const Post = () => {
     const [data, setData] = useState()
 
     useEffect(() => {
-        getOnePost(path).then(res => {setData(res.data)})
+        // getOnePost(path).then(res => {setData(res.data)})
+        dispatch(fetchAllPosts()).then((res) => setData(res.payload.filter((item) => item._id === path)[0]))
     }, [])
 
-    console.log("Ssss" ,data);
+    console.log("aaa" ,data);
     const handleComment = async (e) => {
       e.preventDefault()
       const response = await postComment({

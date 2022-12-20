@@ -3,16 +3,18 @@ import SinglePost from "../components/SinglePost";
 import { Link } from "react-router-dom";
 import { getAllPosts } from "../api/postRequests";
 import {  useDispatch, useSelector } from "react-redux"
-import { loadAllPosts, selectAllPosts } from "../redux/postSlice";
-
-
+import { loadAllPosts, selectAllPosts, fetchAllPosts, getPostStatus, getPostsError } from "../redux/postSlice";
 
 const Home = () => {
   const data = useSelector(selectAllPosts);
+  console.log("ssss" ,data);
+  const postStatus = useSelector(getPostStatus);
+  const error = useSelector(getPostsError);
   const dispatch = useDispatch()
   useEffect(() => {
-    const res = getAllPosts().then((res) => dispatch(loadAllPosts(res)));
-  }, []);
+    // const res = getAllPosts().then((res) => dispatch(loadAllPosts(res)))
+    if (postStatus === "idle") dispatch(fetchAllPosts());
+  }, [postStatus]);
 
   return (
     <div className="w-full flex items-center p-8 flex-col">
@@ -24,7 +26,7 @@ const Home = () => {
       </Link>
 
       <div className="w-1/3  mt-8">
-        {data && data?.posts.posts.map((item) => (
+        {data && data?.map((item) => (
           <Link to={`/post/${item._id}`}>
             <SinglePost data={item} />
           </Link>
