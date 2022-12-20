@@ -8,50 +8,62 @@ import { fetchAllPosts, getPostById } from "../redux/postSlice";
 import { useDispatch } from "react-redux";
 
 const Post = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [comment, setComment] = useState()
-    const location = useLocation();
-    const path = location.pathname.split("/")[2];
-    const [data, setData] = useState()
+  const [comment, setComment] = useState();
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];
+  const [data, setData] = useState();
 
-    useEffect(() => {
-        // getOnePost(path).then(res => {setData(res.data)})
-        dispatch(fetchAllPosts()).then((res) => setData(res.payload.filter((item) => item._id === path)[0]))
-    }, [])
+  useEffect(() => {
+    dispatch(fetchAllPosts()).then((res) =>
+      setData(res.payload.filter((item) => item._id === path)[0])
+    );
+  }, []);
 
-    console.log("aaa" ,data);
-    const handleComment = async (e) => {
-      e.preventDefault()
-      const response = await postComment({
-        "postId": path,
-        "comment": comment
-      })
+  const handleComment = async (e) => {
+    e.preventDefault();
+    const response = await postComment({
+      postId: path,
+      comment: comment,
+    });
 
-      if (!response.success) {
-        alert(response.message);
-      } else navigate("/");
-    }
+    if (!response.success) {
+      alert(response.message);
+    } else window.location.reload();
+  };
 
   return (
     <div className="w-full flex items-center p-8 flex-col ">
-      {data && <div className="border-2 border-black rounded-md w-1/3 flex flex-col items-center px-4">
-        <div className="py-5 border-b-2 w-full flex justify-center">
-          <span className="text-xl">{ data?.title }</span>
-        </div>
-        <SinglePost data={data} />
+      {data && (
+        <div className="border-2 border-black rounded-md w-1/3 flex flex-col items-center px-4">
+          <div className="py-5 border-b-2 w-full flex justify-center">
+            <span className="text-xl">{data?.title}</span>
+          </div>
+          <SinglePost data={data} />
 
-
-        <div className="w-full">
+          <div className="w-full">
             {data?.comments.map((data) => (
               <SingleComment data={data} />
             ))}
+          </div>
+
+          <textarea
+            rows={4}
+            className="w-full bg-red-100 my-4 rounded-md p-4"
+            placeholder="add your comment"
+            onChange={(e) => setComment(e.target.value)}
+          />
+
+          <button
+            disabled={!comment}
+            className="w-full h-7 bg-blue-400 my-6"
+            onClick={handleComment}
+          >
+            Comment
+          </button>
         </div>
-
-        <textarea rows={4} className="w-full bg-red-100 my-4 rounded-md p-4" placeholder="add your comment" onChange={e => setComment(e.target.value)}/>
-
-        <button disabled={!comment} className="w-full h-7 bg-blue-400 my-6" onClick={handleComment}>Comment</button>
-      </div>}
+      )}
     </div>
   );
 };

@@ -7,15 +7,17 @@ import { loadAllPosts, selectAllPosts, fetchAllPosts, getPostStatus, getPostsErr
 
 const Home = () => {
   const data = useSelector(selectAllPosts);
-  console.log("ssss" ,data);
   const postStatus = useSelector(getPostStatus);
   const error = useSelector(getPostsError);
   const dispatch = useDispatch()
   useEffect(() => {
-    // const res = getAllPosts().then((res) => dispatch(loadAllPosts(res)))
-    if (postStatus === "idle") dispatch(fetchAllPosts());
+    if (postStatus === "idle") {
+      dispatch(fetchAllPosts());}
   }, [postStatus]);
 
+  if (error) {
+    alert("somrthing went wrong")
+  }
   return (
     <div className="w-full flex items-center p-8 flex-col">
       <Link
